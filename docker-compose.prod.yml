@@ -1,0 +1,67 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:?POSTGRES_USER est requis}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD est requis}
+      POSTGRES_DB: ${POSTGRES_DB:?POSTGRES_DB est requis}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-insurance} -d ${POSTGRES_DB:-insurance_db}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - internal
+    # Pas de "ports:" ici : Postgres n'est joignable que depuis le réseau interne Docker,
+    # jamais exposé directement sur le VPS.
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.prod
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 4000
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}?schema=public
+      JWT_SECRET: ${JWT_SECRET:?JWT_SECRET est requis}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-7d}
+      CORS_ORIGIN: ${CORS_ORIGIN:?CORS_ORIGIN est requis (URL publique du frontend)}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    expose:
+      - "4000"
+    networks:
+      - internal
+      - dokploy-network
+    # Le domaine public (ex: api.mondomaine.com -> port 4000) se configure
+    # dans l'onglet "Domains" de l'application Dokploy, pas ici.
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+      args:
+        VITE_API_URL: "${VITE_API_URL:?VITE_API_URL est requis, ex. https://api.mondomaine.com/api}"
+    restart: unless-stopped
+    depends_on:
+      - backend
+    expose:
+      - "80"
+    networks:
+      - dokploy-network
+    # Le domaine public (ex: app.mondomaine.com -> port 80) se configure
+    # dans l'onglet "Domains" de l'application Dokploy, pas ici.
+
+volumes:
+  postgres_data:
+
+networks:
+  internal:
+    driver: bridge
+  dokploy-network:
+    external: true

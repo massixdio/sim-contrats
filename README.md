@@ -85,6 +85,15 @@ npm run dev
 - Suivi des paiements (en attente, payé, en retard, annulé) avec marquage manuel
 - Tableau de bord : contrats actifs, contrats expirant sous 30 jours, paiements en attente/retard, revenus encaissés
 
+## Déploiement en production
+
+Fichiers dédiés à la production (VPS + Dokploy) :
+
+- `docker-compose.prod.yml` — stack de production (images multi-stage optimisées, pas de bind-mount du code, PostgreSQL non exposé publiquement)
+- `.env.production.example` — variables d'environnement requises
+- `backend/Dockerfile.prod` / `frontend/Dockerfile.prod` — builds de production (backend compilé, frontend servi par Nginx)
+- [DEPLOY.md](DEPLOY.md) — guide pas-à-pas pour déployer sur un VPS Hostinger avec Dokploy
+
 ## Modèle de données
 
 - **User** — comptes internes (admin/agent)
