@@ -1,0 +1,38 @@
+# Variante de frontend/Dockerfile.prod pour Railway : un serveur Node.js simple
+# ("serve") remplace Nginx, pour écarter tout souci lié au templating envsubst
+# et au démarrage de Nginx sur le PORT injecté par Railway.
+FROM node:20-alpine AS builder
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm ci
+
+COPY . .
+
+ARG VITE_API_URL
+ENV VITE_API_URL=${VITE_API_URL}
+
+RUN npm run build
+
+# ---
+
+FROM node:20-alpine AS runner
+
+WORKDIR /app
+ENV NODE_ENV=production
+
+# Valeur par défaut si la plateforme n'injecte pas PORT ; Railway la fournit au démarrage.
+ENV PORT=8080
+
+RUN npm install -g serve
+
+COPY --from=builder /app/dist ./dist
+
+HEALTHCHECK --interval=30s --timeout=5s --retries=3 \
+  CMD wget -qO- http://localhost:$PORT/ || exit 1
+
+EXPOSE $PORT
+
+# -s (single) : toute route inconnue renvoie index.html (nécessaire pour React Router).
+CMD ["sh", "-c", "serve -s dist -l tcp://0.0.0.0:$PORT"]
