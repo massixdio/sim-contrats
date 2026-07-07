@@ -1,0 +1,145 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  AGENT
+}
+
+enum ContractType {
+  AUTO
+  HABITATION
+  SANTE
+  VIE
+  RESPONSABILITE_CIVILE
+  AUTRE
+}
+
+enum ContractStatus {
+  ACTIVE
+  EXPIRED
+  CANCELLED
+  PENDING
+}
+
+enum PaymentFrequency {
+  MONTHLY
+  QUARTERLY
+  YEARLY
+  ONE_TIME
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  LATE
+  CANCELLED
+}
+
+model User {
+  id        String     @id @default(uuid())
+  email     String     @unique
+  password  String
+  name      String
+  role      Role       @default(AGENT)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  contracts Contract[] @relation("ContractCreatedBy")
+
+  @@map("users")
+}
+
+model Client {
+  id        String     @id @default(uuid())
+  firstName String
+  lastName  String
+  email     String?
+  phone     String?
+  address   String?
+  birthDate DateTime?
+  notes     String?
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  contracts Contract[]
+
+  @@map("clients")
+}
+
+model Insurer {
+  id           String     @id @default(uuid())
+  name         String     @unique
+  contactEmail String?
+  contactPhone String?
+  address      String?
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  contracts    Contract[]
+
+  @@map("insurers")
+}
+
+model Contract {
+  id               String           @id @default(uuid())
+  contractNumber   String           @unique
+  type             ContractType
+  status           ContractStatus   @default(ACTIVE)
+  startDate        DateTime
+  endDate          DateTime
+  premiumAmount    Decimal          @db.Decimal(10, 2)
+  paymentFrequency PaymentFrequency @default(YEARLY)
+  notes            String?
+
+  client   Client @relation(fields: [clientId], references: [id], onDelete: Restrict)
+  clientId String
+
+  insurer   Insurer @relation(fields: [insurerId], references: [id], onDelete: Restrict)
+  insurerId String
+
+  createdBy   User?   @relation("ContractCreatedBy", fields: [createdById], references: [id], onDelete: SetNull)
+  createdById String?
+
+  payments  Payment[]
+  documents Document[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([clientId])
+  @@index([insurerId])
+  @@index([status])
+  @@map("contracts")
+}
+
+model Payment {
+  id         String        @id @default(uuid())
+  contract   Contract      @relation(fields: [contractId], references: [id], onDelete: Cascade)
+  contractId String
+  amount     Decimal       @db.Decimal(10, 2)
+  dueDate    DateTime
+  paidDate   DateTime?
+  status     PaymentStatus @default(PENDING)
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+
+  @@index([contractId])
+  @@index([status])
+  @@map("payments")
+}
+
+model Document {
+  id         String   @id @default(uuid())
+  contract   Contract @relation(fields: [contractId], references: [id], onDelete: Cascade)
+  contractId String
+  name       String
+  url        String
+  createdAt  DateTime @default(now())
+
+  @@index([contractId])
+  @@map("documents")
+}
