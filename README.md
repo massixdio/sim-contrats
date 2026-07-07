@@ -94,6 +94,10 @@ Fichiers dédiés à la production (VPS + Dokploy) :
 - `backend/Dockerfile.prod` / `frontend/Dockerfile.prod` — builds de production (backend compilé, frontend servi par Nginx)
 - [DEPLOY.md](DEPLOY.md) — guide pas-à-pas pour déployer sur un VPS Hostinger avec Dokploy
 
+### Alternative : Railway (backend seul)
+
+`railway.json` force Railway à builder le backend avec `backend/Dockerfile.railway` (contexte = racine du repo) plutôt que de laisser Railpack deviner quoi faire d'un monorepo. Variables à configurer dans Railway : `DATABASE_URL` (fournie automatiquement si vous liez un plugin PostgreSQL Railway), `JWT_SECRET`, `CORS_ORIGIN`. Ne pas définir `PORT` manuellement : Railway l'injecte lui-même et l'app l'utilise déjà (`backend/src/config/env.ts`).
+
 ## Modèle de données
 
 - **User** — comptes internes (admin/agent)

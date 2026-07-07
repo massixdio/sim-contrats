@@ -1,0 +1,37 @@
+# Variante de backend/Dockerfile.prod pour Railway : le contexte de build est
+# la racine du monorepo (Railway ne permet pas de restreindre le contexte au
+# dossier backend/ via railway.json), donc tous les chemins COPY sont préfixés
+# par "backend/".
+FROM node:20-alpine AS builder
+
+RUN apk add --no-cache openssl
+
+WORKDIR /app
+
+COPY backend/package*.json ./
+RUN npm ci
+
+COPY backend/ .
+
+RUN npx prisma generate
+RUN npm run build
+
+# ---
+
+FROM node:20-alpine AS runner
+
+RUN apk add --no-cache openssl
+
+WORKDIR /app
+ENV NODE_ENV=production
+
+COPY backend/package*.json ./
+RUN npm ci --omit=dev
+
+COPY --from=builder /app/dist ./dist
+COPY backend/prisma ./prisma
+RUN npx prisma generate
+
+EXPOSE 4000
+
+CMD ["sh", "-c", "npx prisma migrate deploy && node dist/index.js"]
