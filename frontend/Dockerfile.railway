@@ -1,14 +1,16 @@
 # Variante de frontend/Dockerfile.prod pour Railway : un serveur Node.js simple
 # ("serve") remplace Nginx, pour écarter tout souci lié au templating envsubst
 # et au démarrage de Nginx sur le PORT injecté par Railway.
+# Le contexte de build est la racine du monorepo (comme pour backend/Dockerfile.railway),
+# donc tous les chemins COPY sont préfixés par "frontend/".
 FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-COPY package*.json ./
+COPY frontend/package*.json ./
 RUN npm ci
 
-COPY . .
+COPY frontend/ .
 
 ARG VITE_API_URL
 ENV VITE_API_URL=${VITE_API_URL}
