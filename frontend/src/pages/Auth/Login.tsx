@@ -31,9 +31,14 @@ export function Login() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-gray-50 to-secondary-50 px-4">
       <div className="w-full max-w-sm rounded-lg border border-gray-200 bg-white p-8 shadow-sm">
-        <h1 className="mb-1 text-xl font-semibold text-gray-900">Suivi des Contrats d'Assurance</h1>
+        <div className="mb-6 flex items-center gap-3">
+          <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-primary-700 to-secondary-500 text-base font-bold text-white">
+            S
+          </span>
+          <h1 className="text-lg font-semibold text-primary-800">Sim Assurance</h1>
+        </div>
         <p className="mb-6 text-sm text-gray-500">Connectez-vous à votre compte</p>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -63,7 +68,7 @@ export function Login() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full rounded-md bg-primary-600 px-4 py-2 text-sm font-medium text-white hover:bg-primary-700 disabled:opacity-50"
+            className="w-full rounded-md bg-primary-700 px-4 py-2 text-sm font-medium text-white hover:bg-primary-800 disabled:opacity-50"
           >
             {isSubmitting ? "Connexion..." : "Se connecter"}
           </button>

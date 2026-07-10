@@ -41,7 +41,7 @@ export function PaymentsPage() {
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value as PaymentStatus | "")}
-          className="rounded-md border border-gray-300 px-3 py-2 text-sm"
+          className="rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
         >
           <option value="">Tous les statuts</option>
           {statuses.map((status) => (

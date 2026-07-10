@@ -85,7 +85,7 @@ export function ClientsPage() {
         actions={
           <button
             onClick={openCreate}
-            className="rounded-md bg-primary-600 px-4 py-2 text-sm font-medium text-white hover:bg-primary-700"
+            className="rounded-md bg-primary-700 px-4 py-2 text-sm font-medium text-white hover:bg-primary-800"
           >
             + Nouveau client
           </button>
@@ -153,7 +153,7 @@ export function ClientsPage() {
                   required
                   value={form.firstName}
                   onChange={(e) => setForm({ ...form, firstName: e.target.value })}
-                  className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm"
+                  className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
                 />
               </div>
               <div>
@@ -162,7 +162,7 @@ export function ClientsPage() {
                   required
                   value={form.lastName}
                   onChange={(e) => setForm({ ...form, lastName: e.target.value })}
-                  className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm"
+                  className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
                 />
               </div>
             </div>
@@ -172,7 +172,7 @@ export function ClientsPage() {
                 type="email"
                 value={form.email}
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
-                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm"
+                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
               />
             </div>
             <div>
@@ -180,7 +180,7 @@ export function ClientsPage() {
               <input
                 value={form.phone}
                 onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm"
+                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
               />
             </div>
             <div>
@@ -188,7 +188,7 @@ export function ClientsPage() {
               <input
                 value={form.address}
                 onChange={(e) => setForm({ ...form, address: e.target.value })}
-                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm"
+                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
               />
             </div>
 
@@ -204,7 +204,7 @@ export function ClientsPage() {
               </button>
               <button
                 type="submit"
-                className="rounded-md bg-primary-600 px-4 py-2 text-sm font-medium text-white hover:bg-primary-700"
+                className="rounded-md bg-primary-700 px-4 py-2 text-sm font-medium text-white hover:bg-primary-800"
               >
                 Enregistrer
               </button>

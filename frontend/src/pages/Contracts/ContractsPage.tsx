@@ -91,7 +91,7 @@ export function ContractsPage() {
         actions={
           <button
             onClick={openCreate}
-            className="rounded-md bg-primary-600 px-4 py-2 text-sm font-medium text-white hover:bg-primary-700"
+            className="rounded-md bg-primary-700 px-4 py-2 text-sm font-medium text-white hover:bg-primary-800"
           >
             + Nouveau contrat
           </button>
@@ -102,7 +102,7 @@ export function ContractsPage() {
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value as ContractStatus | "")}
-          className="rounded-md border border-gray-300 px-3 py-2 text-sm"
+          className="rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
         >
           <option value="">Tous les statuts</option>
           {contractStatuses.map((status) => (
@@ -167,7 +167,7 @@ export function ContractsPage() {
                 required
                 value={form.contractNumber}
                 onChange={(e) => setForm({ ...form, contractNumber: e.target.value })}
-                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm"
+                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
               />
             </div>
 
@@ -178,7 +178,7 @@ export function ContractsPage() {
                   required
                   value={form.clientId}
                   onChange={(e) => setForm({ ...form, clientId: e.target.value })}
-                  className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm"
+                  className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
                 >
                   <option value="">Sélectionner...</option>
                   {clients.map((client) => (
@@ -194,7 +194,7 @@ export function ContractsPage() {
                   required
                   value={form.insurerId}
                   onChange={(e) => setForm({ ...form, insurerId: e.target.value })}
-                  className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm"
+                  className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
                 >
                   <option value="">Sélectionner...</option>
                   {insurers.map((insurer) => (
@@ -212,7 +212,7 @@ export function ContractsPage() {
                 <select
                   value={form.type}
                   onChange={(e) => setForm({ ...form, type: e.target.value as ContractType })}
-                  className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm"
+                  className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
                 >
                   {contractTypes.map((type) => (
                     <option key={type} value={type}>
@@ -228,7 +228,7 @@ export function ContractsPage() {
                   onChange={(e) =>
                     setForm({ ...form, paymentFrequency: e.target.value as Contract["paymentFrequency"] })
                   }
-                  className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm"
+                  className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
                 >
                   <option value="MONTHLY">Mensuelle</option>
                   <option value="QUARTERLY">Trimestrielle</option>
@@ -246,7 +246,7 @@ export function ContractsPage() {
                   required
                   value={form.startDate}
                   onChange={(e) => setForm({ ...form, startDate: e.target.value })}
-                  className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm"
+                  className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
                 />
               </div>
               <div>
@@ -256,7 +256,7 @@ export function ContractsPage() {
                   required
                   value={form.endDate}
                   onChange={(e) => setForm({ ...form, endDate: e.target.value })}
-                  className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm"
+                  className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
                 />
               </div>
             </div>
@@ -270,7 +270,7 @@ export function ContractsPage() {
                 required
                 value={form.premiumAmount}
                 onChange={(e) => setForm({ ...form, premiumAmount: e.target.value })}
-                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm"
+                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
               />
             </div>
 
@@ -279,7 +279,7 @@ export function ContractsPage() {
               <textarea
                 value={form.notes}
                 onChange={(e) => setForm({ ...form, notes: e.target.value })}
-                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm"
+                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
                 rows={2}
               />
             </div>
@@ -296,7 +296,7 @@ export function ContractsPage() {
               </button>
               <button
                 type="submit"
-                className="rounded-md bg-primary-600 px-4 py-2 text-sm font-medium text-white hover:bg-primary-700"
+                className="rounded-md bg-primary-700 px-4 py-2 text-sm font-medium text-white hover:bg-primary-800"
               >
                 Créer le contrat
               </button>

@@ -80,7 +80,7 @@ export function InsurersPage() {
         actions={
           <button
             onClick={openCreate}
-            className="rounded-md bg-primary-600 px-4 py-2 text-sm font-medium text-white hover:bg-primary-700"
+            className="rounded-md bg-primary-700 px-4 py-2 text-sm font-medium text-white hover:bg-primary-800"
           >
             + Nouvelle compagnie
           </button>
@@ -136,7 +136,7 @@ export function InsurersPage() {
                 required
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
-                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm"
+                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
               />
             </div>
             <div>
@@ -145,7 +145,7 @@ export function InsurersPage() {
                 type="email"
                 value={form.contactEmail}
                 onChange={(e) => setForm({ ...form, contactEmail: e.target.value })}
-                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm"
+                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
               />
             </div>
             <div>
@@ -153,7 +153,7 @@ export function InsurersPage() {
               <input
                 value={form.contactPhone}
                 onChange={(e) => setForm({ ...form, contactPhone: e.target.value })}
-                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm"
+                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
               />
             </div>
             <div>
@@ -161,7 +161,7 @@ export function InsurersPage() {
               <input
                 value={form.address}
                 onChange={(e) => setForm({ ...form, address: e.target.value })}
-                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm"
+                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
               />
             </div>
 
@@ -177,7 +177,7 @@ export function InsurersPage() {
               </button>
               <button
                 type="submit"
-                className="rounded-md bg-primary-600 px-4 py-2 text-sm font-medium text-white hover:bg-primary-700"
+                className="rounded-md bg-primary-700 px-4 py-2 text-sm font-medium text-white hover:bg-primary-800"
               >
                 Enregistrer
               </button>

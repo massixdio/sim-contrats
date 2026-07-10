@@ -6,9 +6,9 @@ export function Card({ children, className = "" }: { children: ReactNode; classN
 
 export function StatCard({ label, value, hint }: { label: string; value: string | number; hint?: string }) {
   return (
-    <Card>
+    <Card className="border-t-2 border-t-secondary-400">
       <p className="text-sm text-gray-500">{label}</p>
-      <p className="mt-1 text-2xl font-semibold text-gray-900">{value}</p>
+      <p className="mt-1 text-2xl font-semibold text-primary-800">{value}</p>
       {hint && <p className="mt-1 text-xs text-gray-400">{hint}</p>}
     </Card>
   );
