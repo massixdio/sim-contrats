@@ -49,6 +49,7 @@ export function Dashboard() {
         {upcoming.length === 0 ? (
           <p className="text-sm text-gray-400">Aucune échéance à venir.</p>
         ) : (
+          <div className="overflow-x-auto">
           <table className="w-full text-left text-sm">
             <thead>
               <tr className="border-b border-gray-100 text-gray-500">
@@ -75,6 +76,7 @@ export function Dashboard() {
               ))}
             </tbody>
           </table>
+          </div>
         )}
       </Card>
     </div>

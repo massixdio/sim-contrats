@@ -93,6 +93,7 @@ export function InsurersPage() {
         ) : insurers.length === 0 ? (
           <p className="text-sm text-gray-400">Aucune compagnie.</p>
         ) : (
+          <div className="overflow-x-auto">
           <table className="w-full text-left text-sm">
             <thead>
               <tr className="border-b border-gray-100 text-gray-500">
@@ -122,6 +123,7 @@ export function InsurersPage() {
               ))}
             </tbody>
           </table>
+          </div>
         )}
       </Card>
 

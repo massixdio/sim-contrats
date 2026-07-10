@@ -107,7 +107,8 @@ export function ClientsPage() {
         ) : clients.length === 0 ? (
           <p className="text-sm text-gray-400">Aucun client.</p>
         ) : (
-          <table className="w-full text-left text-sm">
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-sm">
             <thead>
               <tr className="border-b border-gray-100 text-gray-500">
                 <th className="pb-2 font-medium">Nom</th>
@@ -138,13 +139,14 @@ export function ClientsPage() {
               ))}
             </tbody>
           </table>
+          </div>
         )}
       </Card>
 
       {showForm && (
         <Modal title={editing ? "Modifier le client" : "Nouveau client"} onClose={() => setShowForm(false)}>
           <form onSubmit={handleSubmit} className="space-y-3">
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               <div>
                 <label className="mb-1 block text-sm font-medium text-gray-700">Prénom</label>
                 <input

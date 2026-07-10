@@ -58,6 +58,7 @@ export function PaymentsPage() {
         ) : payments.length === 0 ? (
           <p className="text-sm text-gray-400">Aucun paiement.</p>
         ) : (
+          <div className="overflow-x-auto">
           <table className="w-full text-left text-sm">
             <thead>
               <tr className="border-b border-gray-100 text-gray-500">
@@ -96,6 +97,7 @@ export function PaymentsPage() {
               ))}
             </tbody>
           </table>
+          </div>
         )}
       </Card>
     </div>

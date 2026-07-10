@@ -119,6 +119,7 @@ export function ContractsPage() {
         ) : contracts.length === 0 ? (
           <p className="text-sm text-gray-400">Aucun contrat.</p>
         ) : (
+          <div className="overflow-x-auto">
           <table className="w-full text-left text-sm">
             <thead>
               <tr className="border-b border-gray-100 text-gray-500">
@@ -153,6 +154,7 @@ export function ContractsPage() {
               ))}
             </tbody>
           </table>
+          </div>
         )}
       </Card>
 
@@ -169,7 +171,7 @@ export function ContractsPage() {
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               <div>
                 <label className="mb-1 block text-sm font-medium text-gray-700">Client</label>
                 <select
@@ -204,7 +206,7 @@ export function ContractsPage() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               <div>
                 <label className="mb-1 block text-sm font-medium text-gray-700">Type</label>
                 <select
@@ -236,7 +238,7 @@ export function ContractsPage() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               <div>
                 <label className="mb-1 block text-sm font-medium text-gray-700">Date de début</label>
                 <input
