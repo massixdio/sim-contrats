@@ -73,8 +73,10 @@ JWT_SECRET=<secret_fort>
 JWT_EXPIRES_IN=7d
 CORS_ORIGIN=https://app.votredomaine.com
 
-VITE_API_URL=https://api.votredomaine.com/api
+VITE_API_URL=https://api.votredomaine.com
 ```
+
+`VITE_API_URL` est l'origine du backend, **sans** `/api` à la fin — le préfixe `/api` est ajouté par le code frontend (`frontend/src/api/client.ts`), pas par cette variable.
 
 Générez des secrets forts localement avec :
 

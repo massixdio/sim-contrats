@@ -46,7 +46,7 @@ services:
       context: ./frontend
       dockerfile: Dockerfile.prod
       args:
-        VITE_API_URL: "${VITE_API_URL:?VITE_API_URL est requis, ex. https://api.mondomaine.com/api}"
+        VITE_API_URL: "${VITE_API_URL:?VITE_API_URL est requis, ex. https://api.mondomaine.com (sans /api)}"
     restart: unless-stopped
     depends_on:
       - backend
