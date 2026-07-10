@@ -94,9 +94,21 @@ Fichiers dédiés à la production (VPS + Dokploy) :
 - `backend/Dockerfile.prod` / `frontend/Dockerfile.prod` — builds de production (backend compilé, frontend servi par Nginx)
 - [DEPLOY.md](DEPLOY.md) — guide pas-à-pas pour déployer sur un VPS Hostinger avec Dokploy
 
-### Alternative : Railway (backend seul)
+### Alternative : Railway
 
-`railway.json` force Railway à builder le backend avec `backend/Dockerfile.railway` (contexte = racine du repo) plutôt que de laisser Railpack deviner quoi faire d'un monorepo. Variables à configurer dans Railway : `DATABASE_URL` (fournie automatiquement si vous liez un plugin PostgreSQL Railway), `JWT_SECRET`, `CORS_ORIGIN`. Ne pas définir `PORT` manuellement : Railway l'injecte lui-même et l'app l'utilise déjà (`backend/src/config/env.ts`).
+Chaque service (backend, frontend) a son propre fichier de config Railway, car sans ça un service hérite du `railway.json` racine et build le mauvais Dockerfile :
+
+- **backend** : `railway.json` (racine) → `backend/Dockerfile.railway`
+- **frontend** : `frontend/railway.json` (à définir comme "Config-as-code path" du service dans le dashboard) → `frontend/Dockerfile.railway` (sert les fichiers statiques via `serve`, pas Nginx)
+
+Variables à configurer sur le service **backend** (dashboard Railway → Variables) :
+
+- `DATABASE_URL` — fournie automatiquement si vous liez un plugin PostgreSQL Railway
+- `JWT_SECRET` — secret fort, généré par ex. avec `openssl rand -base64 32`
+- `CORS_ORIGIN` — **l'URL exacte du service frontend telle qu'assignée par Railway**, ex. `https://adequate-miracle-production-6878.up.railway.app` (sans slash final). Railway attribue cette URL dynamiquement à chaque service : ne pas recopier l'exemple `https://app.votredomaine.com` du guide Dokploy ci-dessus, qui suppose un nom de domaine personnalisé — sur Railway il n'y en a pas par défaut.
+- Ne pas définir `PORT` manuellement : Railway l'injecte lui-même et l'app l'utilise déjà (`backend/src/config/env.ts`).
+
+Si `CORS_ORIGIN` ne correspond pas exactement à l'origine du frontend (protocole + domaine, sans chemin), le navigateur bloque les requêtes du frontend vers l'API avec une erreur CORS.
 
 ## Modèle de données
 
